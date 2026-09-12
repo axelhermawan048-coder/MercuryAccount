@@ -173,21 +173,23 @@ async function handleRealRegister(event) {
 
 async function refreshUserData() {
   if (!currentUser) return updateUIForGuest();
+  
+  const idToFetch = currentUser.userId || currentUser._id;
+  if (!idToFetch) return updateUIForGuest();
+
   try {
-    const res = await fetch(`${API_BASE_URL}/api/users/${currentUser.userId}`);
+    const res = await fetch(`${API_BASE_URL}/api/users/${idToFetch}`);
     if (res.ok) {
       currentUser = await res.json();
       localStorage.setItem('tradex_user', JSON.stringify(currentUser));
       updateUIForLoggedInUser();
     } else {
-      // Jika data tidak valid di server, bersihkan session
       localStorage.removeItem('tradex_user');
       currentUser = null;
       updateUIForGuest();
     }
   } catch (err) {
     console.error('Error refreshing user data:', err);
-    // Jika server down/error, tetap tampilkan session lokal
     if (currentUser) {
       updateUIForLoggedInUser();
     } else {
@@ -252,11 +254,11 @@ async function handleDepositSubmit(event) {
 
   const amount = parseFloat(document.getElementById('dep-amount-input').value);
   try {
-    const res = await fetch(`${API_BASE_URL}/transactions`, {
+    const res = await fetch(`${API_BASE_URL}/api/transactions`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        userId: currentUser.userId,
+        userId: currentUser.userId || currentUser._id,
         userName: currentUser.name,
         type: 'Deposit',
         amount: amount,
@@ -286,11 +288,11 @@ async function handleWithdrawSubmit(event) {
   const bankInfo = document.getElementById('ph-bank').value;
 
   try {
-    const res = await fetch(`${API_BASE_URL}/transactions`, {
+    const res = await fetch(`${API_BASE_URL}/api/transactions`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        userId: currentUser.userId,
+        userId: currentUser.userId || currentUser._id,
         userName: currentUser.name,
         type: 'Withdraw',
         amount: amount,
@@ -314,8 +316,9 @@ async function handleWithdrawSubmit(event) {
 async function fetchTransactionHistory() {
   if (!currentUser) return;
   const container = document.getElementById('transaction-history-list');
+  const userId = currentUser.userId || currentUser._id;
   try {
-    const res = await fetch(`${API_BASE_URL}/transactions/user/${currentUser.userId}`);
+    const res = await fetch(`${API_BASE_URL}/api/transactions/user/${userId}`);
     const data = await res.json();
 
     if (data.length === 0) {
@@ -354,9 +357,10 @@ async function handleBankInfoSubmit(event) {
   const bankName = document.getElementById('user-bank-select').value;
   const accNumber = document.getElementById('user-acc-input').value;
   const holderName = document.getElementById('user-holder-input').value;
+  const userId = currentUser.userId || currentUser._id;
 
   try {
-    const res = await fetch(`${API_BASE_URL}/users/${currentUser.userId}/bank`, {
+    const res = await fetch(`${API_BASE_URL}/api/users/${userId}/bank`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ bankName, accNumber, holderName })
@@ -377,8 +381,10 @@ async function handleKYCSubmit(event) {
   event.preventDefault();
   if (!currentUser) return openAuthModal('login');
 
+  const userId = currentUser.userId || currentUser._id;
+
   try {
-    const res = await fetch(`${API_BASE_URL}/users/${currentUser.userId}/kyc`, { method: 'PUT' });
+    const res = await fetch(`${API_BASE_URL}/api/users/${userId}/kyc`, { method: 'PUT' });
     if (res.ok) {
       currentUser = await res.json();
       localStorage.setItem('tradex_user', JSON.stringify(currentUser));
