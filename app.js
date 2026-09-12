@@ -1,5 +1,5 @@
 // CONFIGURATION API
-const API_BASE_URL = 'https://backendmercury-bszeekr7o-axel-7c11.vercel.app/api';
+const API_BASE_URL = "https://backendmercury-bszeekr7o-axel-7c11.vercel.app";
 
 // GLOBAL STATE
 let currentUser = JSON.parse(localStorage.getItem('tradex_user')) || null;
