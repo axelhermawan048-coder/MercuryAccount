@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - TRADEX</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen p-6">
+
+  <div class="max-w-6xl mx-auto space-y-8">
+    
+    <!-- HEADER -->
+    <div class="flex justify-between items-center border-b border-slate-800 pb-4">
+      <div>
+        <h1 class="text-2xl font-black text-white tracking-wide">ADMIN PANEL</h1>
+        <p class="text-xs text-slate-400">Pusat Kelola Transaksi & Data Pengguna</p>
+      </div>
+      <button onclick="location.reload()" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-2 rounded-lg border border-slate-700 font-bold">Refresh Data</button>
+    </div>
+
+    <!-- TABEL TRANSAKSI -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+      <h2 class="text-lg font-bold text-white">Kelola Transaksi (Deposit / Withdraw)</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-300">
+          <thead class="bg-slate-950 text-slate-400 uppercase font-mono">
+            <tr>
+              <th class="p-3">ID Trx</th>
+              <th class="p-3">Tipe</th>
+              <th class="p-3">Jumlah</th>
+              <th class="p-3">Tanggal</th>
+              <th class="p-3">Status</th>
+              <th class="p-3 text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="finance-table-body" class="divide-y divide-slate-800">
+            <!-- Data transaksi di-render lewat JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- TABEL PELANGGAN -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4">
+      <h2 class="text-lg font-bold text-white">Daftar Customer</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-xs text-slate-300">
+          <thead class="bg-slate-950 text-slate-400 uppercase font-mono">
+            <tr>
+              <th class="p-3">Nama / ID</th>
+              <th class="p-3">Email</th>
+              <th class="p-3">Saldo</th>
+              <th class="p-3">KYC</th>
+              <th class="p-3 text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="customer-table-body" class="divide-y divide-slate-800">
+            <!-- Data customer di-render lewat JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const API_BASE_URL = 'http://localhost:5000/api';
+
+    async function renderCustomers() {
+      try {
+        const res = await fetch(`${API_BASE_URL}/admin/users`);
+        const users = await res.json();
+        
+        const tbody = document.getElementById('customer-table-body');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        
+        users.forEach(c => {
+          tbody.innerHTML += `
+            <tr class="hover:bg-slate-900/50">
+              <td class="p-3"><span class="font-bold text-white">${c.name}</span><br><span class="text-[10px] text-slate-500">${c.userId}</span></td>
+              <td class="p-3 text-slate-400">${c.email}</td>
+              <td class="p-3 font-bold text-emerald-400">RM ${(c.balance || 0).toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
+              <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${c.kycStatus === 'Terverifikasi' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">${c.kycStatus || 'Belum'}</span></td>
+              <td class="p-3 text-center">
+                <button onclick="editUserBalance('${encodeURIComponent(c.userId)}')" class="bg-slate-800 hover:bg-slate-700 text-rose-400 px-3 py-1 rounded-lg border border-slate-700 text-[10px] font-bold">Edit Saldo</button>
+              </td>
+            </tr>
+          `;
+        });
+      } catch (err) {
+        console.error('Gagal memuat data customer:', err);
+      }
+    }
+
+    async function renderTransactions() {
+      try {
+        const res = await fetch(`${API_BASE_URL}/admin/transactions`);
+        const trxs = await res.json();
+
+        const tbody = document.getElementById('finance-table-body');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+        trxs.forEach(trx => {
+          let badge = trx.status === 'Berhasil' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : (trx.status === 'Pending' ? 'bg-amber-500/20 text-amber-400 border-amber-500/30' : 'bg-rose-500/20 text-rose-400 border-rose-500/30');
+          
+          tbody.innerHTML += `
+            <tr class="hover:bg-slate-900/50">
+              <td class="p-3 font-mono text-white">${trx.trxId}</td>
+              <td class="p-3 font-bold ${trx.type === 'Deposit' ? 'text-emerald-400' : 'text-rose-400'}">${trx.type}</td>
+              <td class="p-3 font-bold text-white">RM ${Number(trx.amount || 0).toFixed(2)}</td>
+              <td class="p-3 text-slate-400 text-[10px]">${new Date(trx.createdAt).toLocaleString()}</td>
+              <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold border ${badge}">${trx.status}</span></td>
+              <td class="p-3 text-center space-x-1">
+                <button onclick="updateTrxStatus('${encodeURIComponent(trx.trxId)}', 'Berhasil')" class="bg-emerald-500/20 text-emerald-400 px-2 py-1 rounded text-[10px] font-bold hover:bg-emerald-500/30">Setujui</button>
+                <button onclick="updateTrxStatus('${encodeURIComponent(trx.trxId)}', 'Ditolak')" class="bg-rose-500/20 text-rose-400 px-2 py-1 rounded text-[10px] font-bold hover:bg-rose-500/30">Tolak</button>
+              </td>
+            </tr>
+          `;
+        });
+      } catch (err) {
+        console.error('Gagal memuat transaksi:', err);
+      }
+    }
+
+    async function updateTrxStatus(encodedTrxId, status) {
+      try {
+        const res = await fetch(`${API_BASE_URL}/admin/transactions/${encodedTrxId}/status`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ status })
+        });
+
+        if (res.ok) {
+          renderTransactions();
+          renderCustomers();
+          alert('Status transaksi berhasil diperbarui!');
+        } else {
+          alert('Gagal memperbarui status transaksi.');
+        }
+      } catch (err) {
+        alert('Terjadi kesalahan jaringan.');
+      }
+    }
+
+    async function editUserBalance(encodedUserId) {
+      const val = prompt("Masukkan Saldo Baru (RM):");
+      if (val !== null && !isNaN(parseFloat(val))) {
+        try {
+          const res = await fetch(`${API_BASE_URL}/admin/users/${encodedUserId}/balance`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ balance: parseFloat(val) })
+          });
+
+          if (res.ok) {
+            renderCustomers();
+            alert('Saldo customer berhasil diperbarui!');
+          } else {
+            alert('Gagal memperbarui saldo.');
+          }
+        } catch (err) {
+          alert('Terjadi kesalahan jaringan.');
+        }
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCustomers();
+      renderTransactions();
+    });
+  </script>
+</body>
+</html>
