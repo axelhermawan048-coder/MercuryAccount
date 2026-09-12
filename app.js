@@ -122,7 +122,7 @@ async function handleRealLogin(event) {
   const password = document.getElementById('login-password-input').value;
 
   try {
-    const res = await fetch(`${API_BASE_URL}/auth/login`, {
+    const res = await fetch(`${API_BASE_URL}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, password })
@@ -150,7 +150,7 @@ async function handleRealRegister(event) {
   const password = document.getElementById('reg-password-input').value;
 
   try {
-    const res = await fetch(`${API_BASE_URL}/auth/register`, {
+    const res = await fetch(`${API_BASE_URL}/api/auth/register`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email, password })
@@ -174,7 +174,7 @@ async function handleRealRegister(event) {
 async function refreshUserData() {
   if (!currentUser) return updateUIForGuest();
   try {
-    const res = await fetch(`${API_BASE_URL}/users/${currentUser.userId}`);
+    const res = await fetch(`${API_BASE_URL}/api/users/${currentUser.userId}`);
     if (res.ok) {
       currentUser = await res.json();
       localStorage.setItem('tradex_user', JSON.stringify(currentUser));
