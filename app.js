@@ -171,30 +171,38 @@ async function handleRealRegister(event) {
   }
 }
 
+// REFRESH DATA USER (AMAN DARI AUTO-LOGOUT)
 async function refreshUserData() {
   if (!currentUser) return updateUIForGuest();
-  
+
   const idToFetch = currentUser.userId || currentUser._id;
-  if (!idToFetch) return updateUIForGuest();
+
+  // Jika tidak ada ID, tampilkan data yang ada tanpa logout
+  if (!idToFetch) {
+    updateUIForLoggedInUser();
+    return;
+  }
 
   try {
-    const res = await fetch(`${API_BASE_URL}/api/users/${idToFetch}`);
+    const res = await fetch(`${API_BASE_URL}/api/users/${encodeURIComponent(idToFetch)}`);
+    
     if (res.ok) {
-      currentUser = await res.json();
+      const serverUser = await res.json();
+      currentUser = { ...currentUser, ...serverUser };
       localStorage.setItem('tradex_user', JSON.stringify(currentUser));
       updateUIForLoggedInUser();
-    } else {
+    } else if (res.status === 404) {
+      // Hapus sesi hanya jika user benar-benar hilang di database
       localStorage.removeItem('tradex_user');
       currentUser = null;
       updateUIForGuest();
+    } else {
+      // Server error/koneksi terganggu: pertahankan sesi lokal
+      updateUIForLoggedInUser();
     }
   } catch (err) {
     console.error('Error refreshing user data:', err);
-    if (currentUser) {
-      updateUIForLoggedInUser();
-    } else {
-      updateUIForGuest();
-    }
+    updateUIForLoggedInUser();
   }
 }
 
