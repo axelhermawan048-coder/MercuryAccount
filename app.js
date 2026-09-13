@@ -382,25 +382,6 @@ async function handleBankInfoSubmit(event) {
   }
 }
 
-async function handleKYCSubmit(event) {
-  event.preventDefault();
-  if (!currentUser) return openAuthModal('login');
-
-  const userId = currentUser.userId || currentUser._id;
-
-  try {
-    const res = await fetch(`${API_BASE_URL}/api/users/${userId}/kyc`, { method: 'PUT' });
-    if (res.ok) {
-      currentUser = await res.json();
-      localStorage.setItem('tradex_user', JSON.stringify(currentUser));
-      updateUIForLoggedInUser();
-      alert('Dokumen KYC berjaya dihantar dan sedang diproses!');
-    }
-  } catch (err) {
-    alert('Gagal mengemaskini status KYC');
-  }
-}
-
 function closeDepositModal() {
   const modal = document.getElementById('depositModal');
   if (modal) modal.classList.add('hidden'), modal.classList.remove('flex');
