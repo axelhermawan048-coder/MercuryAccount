@@ -443,7 +443,7 @@ function initWatchlist(category = 'all') {
 
   const filtered = category === 'all' ? watchlistData : watchlistData.filter(i => i.cat === category);
   container.innerHTML = filtered.map(item => `
-    <div onclick="updateChartSymbol('${item.symbol}')" class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center hover:border-slate-300 shadow-sm cursor-pointer transition">
+    <div onclick="updateChartSymbol('${item.symbol}')" class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center shadow-md cursor-pointer transition">
       <div>
         <p class="font-bold text-xs text-slate-900">${item.symbol}</p>
         <p class="text-[10px] text-slate-500">${item.name}</p>
@@ -467,7 +467,7 @@ function filterCategory(cat) {
   initWatchlist(cat);
 }
 
-// CHART SYSTEM (CHART.JS - BLUE THEME ACCENT)
+// CHART SYSTEM (CHART.JS)
 function initChart() {
   const ctx = document.getElementById('tradingChart');
   if (!ctx) return;
@@ -514,7 +514,7 @@ function updateChartSymbol(symbol) {
 function changeTimeframe(tf) {
   ['1D', '1W', '1M', '1Y'].forEach(t => {
     const btn = document.getElementById(`tf-${t}`);
-    if (btn) btn.className = "bg-slate-200 text-slate-700 hover:bg-slate-300 px-2 py-0.5 rounded transition";
+    if (btn) btn.className = "bg-slate-100 text-slate-700 hover:bg-slate-200 px-2 py-0.5 rounded transition";
   });
   const activeBtn = document.getElementById(`tf-${tf}`);
   if (activeBtn) activeBtn.className = "bg-blue-600 text-white font-bold px-2 py-0.5 rounded transition";
