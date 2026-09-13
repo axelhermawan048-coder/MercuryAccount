@@ -49,7 +49,7 @@
       <!-- HERO BANNER SLIDER -->
       <div class="relative overflow-hidden rounded-2xl bg-white text-slate-900 border border-slate-200 shadow-md">
         <div id="slider-container" class="flex transition-transform duration-500 ease-in-out w-[200%]">
-          <!-- Slide 1 (Menggunakan gambar Mybanner1.jpeg) -->
+          <!-- Slide 1 -->
           <div class="w-1/2 p-5 bg-cover bg-center flex flex-col justify-between space-y-3 min-h-[160px]" style="background-image: url('./Mybanner1.jpeg');">
             <span id="lbl-banner1-tag" class="text-[10px] font-bold text-blue-700 tracking-wider bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full w-max border border-blue-200 shadow-sm">
               KEUNTUNGAN MAKSIMAL
@@ -61,7 +61,7 @@
               <span id="lbl-quick-sys">Sistem Eksekusi Pantas</span> &rarr;
             </button>
           </div>
-          <!-- Slide 2 (Menggunakan gambar Mybanner2.jpeg) -->
+          <!-- Slide 2 -->
           <div class="w-1/2 p-5 bg-cover bg-center flex flex-col justify-between space-y-3 min-h-[160px]" style="background-image: url('./Mybanner2.jpeg');">
             <span id="lbl-banner2-tag" class="text-[10px] font-bold text-blue-700 tracking-wider bg-white/90 backdrop-blur-sm px-2.5 py-1 rounded-full w-max border border-blue-200 shadow-sm">
               PASARAN GLOBAL
@@ -81,7 +81,7 @@
         </div>
       </div>
 
-      <!-- RINGKASAN SALDO REAL (Kartu Aksyen Putih-Biru) -->
+      <!-- RINGKASAN SALDO REAL -->
       <div class="bg-white p-4 rounded-2xl border border-blue-100 shadow-md space-y-3">
         <div class="flex justify-between items-center">
           <span id="lbl-total-balance" class="text-xs text-slate-500 font-medium">Jumlah Saldo</span>
@@ -318,11 +318,16 @@
         <div>
           <label id="lbl-user-bank-name" class="block text-[11px] text-slate-500 mb-1">Pilih Bank</label>
           <select id="user-bank-select" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 text-xs text-slate-900 outline-none focus:border-blue-500">
-            <option value="Maybank">Maybank</option>
-            <option value="CIMB Bank">CIMB Bank</option>
-            <option value="Public Bank">Public Bank</option>
-            <option value="RHB Bank">RHB Bank</option>
-            <option value="Hong Leong Bank">Hong Leong Bank</option>
+            <option value="Maybank">Maybank (Malayan Banking Berhad)</option>
+            <option value="CIMB Bank">CIMB Bank Berhad</option>
+            <option value="Public Bank">Public Bank Berhad</option>
+            <option value="RHB Bank">RHB Bank Berhad</option>
+            <option value="Hong Leong Bank">Hong Leong Bank Berhad</option>
+            <option value="Bank Islam">Bank Islam Malaysia Berhad</option>
+            <option value="AmBank">AmBank Berhad</option>
+            <option value="Affin Bank">Affin Bank Berhad</option>
+            <option value="Alliance Bank">Alliance Bank Malaysia Berhad</option>
+            <option value="BSN">Bank Simpanan Nasional (BSN)</option>
           </select>
         </div>
         <div>
@@ -371,7 +376,7 @@
 
   </main>
 
-  <!-- BOTTOM NAVIGATION BAR (Putih Bersih dengan Border Biru Pucat) -->
+  <!-- BOTTOM NAVIGATION BAR -->
   <nav class="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-md border-t border-slate-200 px-2 py-2 z-40 shadow-lg">
     <div class="max-w-md mx-auto flex justify-around items-center text-[10px]">
       <button id="nav-home" onclick="switchTab('home')" class="nav-btn text-blue-600 flex flex-col items-center space-y-1">
