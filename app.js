@@ -323,7 +323,7 @@ async function fetchTransactionHistory() {
   const container = document.getElementById('transaction-history-list');
   const userId = currentUser.userId || currentUser._id;
   try {
-    const res = await fetch(`${API_BASE_URL}/api/transactions/user/${userId}`);
+    const res = await fetch(`${API_BASE_URL}/api/transactions/user/${encodeURIComponent(userId)}`);
     const data = await res.json();
 
     if (data.length === 0) {
@@ -365,7 +365,7 @@ async function handleBankInfoSubmit(event) {
   const userId = currentUser.userId || currentUser._id;
 
   try {
-    const res = await fetch(`${API_BASE_URL}/api/users/${userId}/bank`, {
+    const res = await fetch(`${API_BASE_URL}/api/users/${encodeURIComponent(userId)}/bank`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ bankName, accNumber, holderName })
