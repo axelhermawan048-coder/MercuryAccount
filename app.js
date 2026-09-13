@@ -5,6 +5,47 @@ const API_BASE_URL = "https://backendmercury.vercel.app";
 let currentUser = JSON.parse(localStorage.getItem('tradex_user')) || null;
 let currentChart = null;
 
+// CUSTOM ALERT MODAL SYSTEM
+function showCustomAlert(title, message) {
+  let alertModal = document.getElementById('customAlertModal');
+  
+  if (!alertModal) {
+    alertModal = document.createElement('div');
+    alertModal.id = 'customAlertModal';
+    alertModal.className = 'fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4';
+    alertModal.innerHTML = `
+      <div class="bg-white border border-slate-200 w-full max-w-xs rounded-2xl p-5 text-center space-y-4 shadow-2xl animate-in fade-in zoom-in duration-150">
+        <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mx-auto border border-blue-100">
+          <i data-feather="info" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <h3 id="customAlertTitle" class="font-bold text-sm text-slate-900"></h3>
+          <p id="customAlertMessage" class="text-xs text-slate-500 mt-1"></p>
+        </div>
+        <button onclick="closeCustomAlert()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-xl text-xs transition">
+          OK
+        </button>
+      </div>
+    `;
+    document.body.appendChild(alertModal);
+    if (window.feather) feather.replace();
+  }
+
+  document.getElementById('customAlertTitle').textContent = title;
+  document.getElementById('customAlertMessage').textContent = message;
+  
+  alertModal.classList.remove('hidden');
+  alertModal.classList.add('flex');
+}
+
+function closeCustomAlert() {
+  const alertModal = document.getElementById('customAlertModal');
+  if (alertModal) {
+    alertModal.classList.add('hidden');
+    alertModal.classList.remove('flex');
+  }
+}
+
 // INITIALIZATION
 document.addEventListener('DOMContentLoaded', () => {
   feather.replace();
@@ -109,7 +150,7 @@ function handleLogoutOrLogin() {
     localStorage.removeItem('tradex_user');
     currentUser = null;
     updateUIForGuest();
-    alert('Anda telah log keluar.');
+    showCustomAlert('Maklumat', 'Anda telah log keluar.');
   } else {
     openAuthModal('login');
   }
@@ -134,12 +175,12 @@ async function handleRealLogin(event) {
       localStorage.setItem('tradex_user', JSON.stringify(currentUser));
       updateUIForLoggedInUser();
       closeAuthModal();
-      alert('Log masuk berjaya!');
+      showCustomAlert('Berjaya', 'Log masuk berjaya!');
     } else {
-      alert(data.message || 'Log masuk gagal');
+      showCustomAlert('Ralat', data.message || 'Log masuk gagal');
     }
   } catch (err) {
-    alert('Gagal berhubung dengan pelayan');
+    showCustomAlert('Ralat', 'Gagal berhubung dengan pelayan');
   }
 }
 
@@ -162,12 +203,12 @@ async function handleRealRegister(event) {
       localStorage.setItem('tradex_user', JSON.stringify(currentUser));
       updateUIForLoggedInUser();
       closeAuthModal();
-      alert('Pendaftaran berjaya!');
+      showCustomAlert('Berjaya', 'Pendaftaran berjaya!');
     } else {
-      alert(data.message || 'Pendaftaran gagal');
+      showCustomAlert('Ralat', data.message || 'Pendaftaran gagal');
     }
   } catch (err) {
-    alert('Gagal berhubung dengan pelayan');
+    showCustomAlert('Ralat', 'Gagal berhubung dengan pelayan');
   }
 }
 
@@ -278,10 +319,10 @@ async function handleDepositSubmit(event) {
       document.getElementById('dep-amount-input').value = '';
     } else {
       const data = await res.json();
-      alert(data.message || 'Pengajuan deposit gagal');
+      showCustomAlert('Ralat', data.message || 'Pengajuan deposit gagal');
     }
   } catch (err) {
-    alert('Gagal membuat transaksi');
+    showCustomAlert('Ralat', 'Gagal membuat transaksi');
   }
 }
 
@@ -306,15 +347,15 @@ async function handleWithdrawSubmit(event) {
     });
 
     if (res.ok) {
-      alert('Permohonan pengeluaran berjaya dihantar');
+      showCustomAlert('Berjaya', 'Permohonan pengeluaran berjaya dihantar');
       document.getElementById('wd-amount-input').value = '';
       switchSubTab('status');
     } else {
       const data = await res.json();
-      alert(data.message || 'Pengeluaran gagal');
+      showCustomAlert('Ralat', data.message || 'Pengeluaran gagal');
     }
   } catch (err) {
-    alert('Gagal membuat transaksi pengeluaran');
+    showCustomAlert('Ralat', 'Gagal membuat transaksi pengeluaran');
   }
 }
 
@@ -375,10 +416,13 @@ async function handleBankInfoSubmit(event) {
       currentUser = await res.json();
       localStorage.setItem('tradex_user', JSON.stringify(currentUser));
       updateUIForLoggedInUser();
-      alert('Akaun bank berjaya disimpan!');
+      showCustomAlert('Berjaya', 'Akaun bank berjaya disimpan!');
+    } else {
+      const data = await res.json().catch(() => ({}));
+      showCustomAlert('Ralat', data.message || 'Gagal menyimpan maklumat bank.');
     }
   } catch (err) {
-    alert('Gagal menyimpan maklumat bank');
+    showCustomAlert('Ralat', 'Gagal menyimpan maklumat bank');
   }
 }
 
