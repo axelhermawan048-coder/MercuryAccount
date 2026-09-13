@@ -407,7 +407,7 @@ function closeDepositModal() {
 }
 
 function redirectToCustomerService() {
-  window.open('https://wa.me/60123456789', '_blank');
+  window.open('https://wa.me/00000', '_blank');
 }
 
 // SLIDER LOGIC
