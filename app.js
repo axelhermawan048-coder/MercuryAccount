@@ -26,14 +26,14 @@ function switchTab(tabId) {
   if (activeTab) activeTab.classList.remove('hidden');
 
   document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.classList.remove('text-blue-600');
-    btn.classList.add('text-slate-400');
+    btn.classList.remove('text-white');
+    btn.classList.add('text-blue-300');
   });
   
   const activeNav = document.getElementById(`nav-${tabId}`);
   if (activeNav) {
-    activeNav.classList.remove('text-slate-400');
-    activeNav.classList.add('text-blue-600');
+    activeNav.classList.remove('text-blue-300');
+    activeNav.classList.add('text-white');
   }
 }
 
@@ -427,7 +427,7 @@ function initSlider() {
   }, 4000);
 }
 
-// WATCHLIST DATA & RENDER
+// WATCHLIST DATA & RENDER (Render Card Putih)
 const watchlistData = [
   { symbol: 'BTC/USD', name: 'Bitcoin', price: '$68,400.00', change: '+3.12%', positive: true, cat: 'crypto' },
   { symbol: 'ETH/USD', name: 'Ethereum', price: '$3,520.50', change: '+1.85%', positive: true, cat: 'crypto' },
@@ -443,7 +443,7 @@ function initWatchlist(category = 'all') {
 
   const filtered = category === 'all' ? watchlistData : watchlistData.filter(i => i.cat === category);
   container.innerHTML = filtered.map(item => `
-    <div onclick="updateChartSymbol('${item.symbol}')" class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center hover:border-slate-300 shadow-sm cursor-pointer transition">
+    <div onclick="updateChartSymbol('${item.symbol}')" class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center shadow-md cursor-pointer transition">
       <div>
         <p class="font-bold text-xs text-slate-900">${item.symbol}</p>
         <p class="text-[10px] text-slate-500">${item.name}</p>
@@ -459,7 +459,7 @@ function initWatchlist(category = 'all') {
 function filterCategory(cat) {
   ['all', 'saham-my', 'saham-us', 'crypto', 'forex'].forEach(c => {
     const btn = document.getElementById(`cat-${c}`);
-    if (btn) btn.className = "bg-white border border-slate-200 text-slate-700 px-2.5 py-1 rounded-full whitespace-nowrap transition";
+    if (btn) btn.className = "bg-blue-900/60 border border-blue-700/50 text-blue-200 px-2.5 py-1 rounded-full whitespace-nowrap transition";
   });
   const activeBtn = document.getElementById(`cat-${cat}`);
   if (activeBtn) activeBtn.className = "bg-blue-600 text-white font-bold px-2.5 py-1 rounded-full whitespace-nowrap transition";
@@ -467,7 +467,7 @@ function filterCategory(cat) {
   initWatchlist(cat);
 }
 
-// CHART SYSTEM (CHART.JS - BLUE THEME ACCENT)
+// CHART SYSTEM (CHART.JS)
 function initChart() {
   const ctx = document.getElementById('tradingChart');
   if (!ctx) return;
