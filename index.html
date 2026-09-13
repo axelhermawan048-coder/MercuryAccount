@@ -13,28 +13,28 @@
   <!-- Custom Styles -->
   <link rel="stylesheet" href="styles.css">
 </head>
-<body class="bg-slate-50 text-slate-900 font-sans min-h-screen pb-20">
+<body class="bg-gradient-to-b from-blue-950 via-slate-900 to-slate-950 text-slate-100 font-sans min-h-screen pb-20">
 
-  <!-- TOP HEADER -->
-  <header class="bg-white/90 backdrop-blur-md border-b border-slate-200 shadow-sm sticky top-0 z-40 px-4 py-3 flex justify-between items-center">
+  <!-- TOP HEADER (Biru Solid dengan Border Aksyen) -->
+  <header class="bg-blue-900/90 backdrop-blur-md border-b border-blue-700/50 shadow-md sticky top-0 z-40 px-4 py-3 flex justify-between items-center">
     <div class="flex items-center space-x-2">
       <img src="./myylogo.png" alt="Logo Mercury" class="h-8 w-auto object-contain">
       <div>
-        <h1 class="font-bold text-sm tracking-wide text-slate-900 leading-none">MERCURY SECURITIES</h1>
-        <p id="lbl-head-sub" class="text-[10px] text-slate-500">Portal Perdagangan Rasmi</p>
+        <h1 class="font-bold text-sm tracking-wide text-white leading-none">MERCURY SECURITIES</h1>
+        <p id="lbl-head-sub" class="text-[10px] text-blue-200">Portal Perdagangan Rasmi</p>
       </div>
     </div>
 
     <div class="flex items-center space-x-3">
       <!-- Selector Bahasa -->
-      <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-slate-100 border border-slate-200 text-xs text-slate-700 rounded-lg px-2 py-1 outline-none focus:border-blue-500">
+      <select id="langSelect" onchange="changeLanguage(this.value)" class="bg-blue-950 border border-blue-700 text-xs text-white rounded-lg px-2 py-1 outline-none focus:border-blue-400">
         <option value="ms">🇲🇾 MY</option>
         <option value="id">🇮🇩 ID</option>
         <option value="en">🇬🇧 EN</option>
         <option value="zh">🇨🇳 ZH</option>
       </select>
 
-      <button onclick="handleAuthHeaderClick()" id="btn-head-login" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition shadow-md shadow-blue-600/20">
+      <button onclick="handleAuthHeaderClick()" id="btn-head-login" class="bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs px-3 py-1.5 rounded-lg transition shadow-md shadow-blue-600/30 border border-blue-400/30">
         Log Masuk
       </button>
     </div>
@@ -47,29 +47,29 @@
     <div id="tab-home" class="tab-content space-y-4">
       
       <!-- HERO BANNER SLIDER -->
-      <div class="relative overflow-hidden rounded-2xl bg-white border border-slate-200 shadow-sm">
+      <div class="relative overflow-hidden rounded-2xl bg-white text-slate-900 border border-blue-200 shadow-lg">
         <div id="slider-container" class="flex transition-transform duration-500 ease-in-out w-[200%]">
-          <!-- Slide 1 -->
-          <div class="w-1/2 p-5 bg-gradient-to-r from-blue-500/10 to-slate-50 flex flex-col justify-between space-y-3">
-            <span id="lbl-banner1-tag" class="text-[10px] font-bold text-blue-600 tracking-wider bg-blue-500/20 px-2.5 py-1 rounded-full w-max border border-blue-500/30">
+          <!-- Slide 1 (Menggunakan gambar Mybanner1.jpeg) -->
+          <div class="w-1/2 p-5 bg-cover bg-center flex flex-col justify-between space-y-3 min-h-[160px]" style="background-image: url('./Mybanner1.jpeg');">
+            <span id="lbl-banner1-tag" class="text-[10px] font-bold text-blue-700 tracking-wider bg-white/80 backdrop-blur-sm px-2.5 py-1 rounded-full w-max border border-blue-300">
               KEUNTUNGAN MAKSIMAL
             </span>
-            <h2 id="lbl-banner1-title" class="text-lg font-extrabold text-slate-900 leading-tight">
+            <h2 id="lbl-banner1-title" class="text-lg font-extrabold text-slate-900 leading-tight bg-white/40 p-1.5 rounded-lg backdrop-blur-[2px]">
               Mencapai Kejayaan Kewangan Bersama Platform Mercury
             </h2>
-            <button onclick="switchTab('chart')" class="text-xs bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-2 rounded-xl w-max transition">
+            <button onclick="switchTab('chart')" class="text-xs bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-2 rounded-xl w-max transition shadow-sm">
               <span id="lbl-quick-sys">Sistem Eksekusi Pantas</span> &rarr;
             </button>
           </div>
           <!-- Slide 2 -->
-          <div class="w-1/2 p-5 bg-gradient-to-r from-sky-500/10 to-slate-50 flex flex-col justify-between space-y-3">
-            <span id="lbl-banner2-tag" class="text-[10px] font-bold text-sky-600 tracking-wider bg-sky-500/20 px-2.5 py-1 rounded-full w-max border border-sky-500/30">
+          <div class="w-1/2 p-5 bg-gradient-to-r from-sky-100 to-white flex flex-col justify-between space-y-3 min-h-[160px]">
+            <span id="lbl-banner2-tag" class="text-[10px] font-bold text-sky-700 tracking-wider bg-sky-200/60 px-2.5 py-1 rounded-full w-max border border-sky-300">
               PASARAN GLOBAL
             </span>
             <h2 id="lbl-banner2-title" class="text-lg font-extrabold text-slate-900 leading-tight">
               Pelaburan Bijak dalam Saham Malaysia, US & Kripto
             </h2>
-            <button onclick="switchTab('chart')" class="text-xs bg-sky-600 hover:bg-sky-700 text-white font-bold px-3 py-2 rounded-xl w-max transition">
+            <button onclick="switchTab('chart')" class="text-xs bg-sky-600 hover:bg-sky-700 text-white font-bold px-3 py-2 rounded-xl w-max transition shadow-sm">
               <span id="btn-explore-mkt">Terokai Pasaran</span> &rarr;
             </button>
           </div>
@@ -81,10 +81,10 @@
         </div>
       </div>
 
-      <!-- RINGKASAN SALDO REAL -->
-      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+      <!-- RINGKASAN SALDO REAL (Konten Kartu Putih) -->
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-md space-y-3">
         <div class="flex justify-between items-center">
-          <span id="lbl-total-balance" class="text-xs text-slate-500">Jumlah Saldo</span>
+          <span id="lbl-total-balance" class="text-xs text-slate-500 font-medium">Jumlah Saldo</span>
           <span id="user-status-badge" class="text-[10px] text-amber-700 font-semibold bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20">Belum Log Masuk</span>
         </div>
         <p id="display-total-balance" class="text-2xl font-black text-slate-900">RM 0.00</p>
@@ -106,10 +106,10 @@
 
         <!-- Tombol Aksi Cepat -->
         <div class="grid grid-cols-2 gap-2 pt-1">
-          <button onclick="goToTransaction('deposit')" class="bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-bold text-xs py-2 rounded-xl flex items-center justify-center transition">
+          <button onclick="goToTransaction('deposit')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs py-2 rounded-xl flex items-center justify-center transition shadow-md shadow-blue-600/20">
             <i data-feather="arrow-down-left" class="w-4 h-4 mr-1.5"></i> <span id="lbl-dep-title">Deposit Saldo</span>
           </button>
-          <button onclick="goToTransaction('withdraw')" class="bg-rose-50 hover:bg-rose-100 text-rose-700 border border-rose-200 font-bold text-xs py-2 rounded-xl flex items-center justify-center transition">
+          <button onclick="goToTransaction('withdraw')" class="bg-rose-500 hover:bg-rose-600 text-white font-bold text-xs py-2 rounded-xl flex items-center justify-center transition shadow-md shadow-rose-500/20">
             <i data-feather="arrow-up-right" class="w-4 h-4 mr-1.5"></i> <span id="lbl-wd-title">Pengeluaran Dana</span>
           </button>
         </div>
@@ -117,14 +117,14 @@
 
       <!-- KEUNGGULAN PLATFORM -->
       <div class="space-y-2">
-        <h3 id="lbl-feat-title" class="text-xs font-bold text-slate-500 tracking-wider uppercase">Keunggulan Platform</h3>
+        <h3 id="lbl-feat-title" class="text-xs font-bold text-blue-300 tracking-wider uppercase">Keunggulan Platform</h3>
         <div class="grid grid-cols-2 gap-2">
-          <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm space-y-1">
+          <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-md space-y-1">
             <i data-feather="shield" class="w-5 h-5 text-blue-600"></i>
             <p id="lbl-feat1-title" class="font-bold text-xs text-slate-900">Keselamatan Tinggi</p>
             <p id="lbl-feat1-desc" class="text-[10px] text-slate-500">Enkripsi data ketat & verifikasi KYC terjamin.</p>
           </div>
-          <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm space-y-1">
+          <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-md space-y-1">
             <i data-feather="zap" class="w-5 h-5 text-amber-500"></i>
             <p id="lbl-feat2-title" class="font-bold text-xs text-slate-900">Data Real-Time</p>
             <p id="lbl-feat2-desc" class="text-[10px] text-slate-500">Pantau harga saham & kripto secara langsung.</p>
@@ -136,7 +136,7 @@
 
     <!-- TAB 2: PASAR / CHART -->
     <div id="tab-chart" class="tab-content hidden space-y-4">
-      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-md space-y-3">
         <div class="flex justify-between items-center">
           <div>
             <div class="flex items-center space-x-2">
@@ -146,7 +146,7 @@
             <p id="lbl-subname" class="text-[11px] text-slate-500">Bitcoin / US Dollar</p>
           </div>
           
-          <select id="symbolSelect" onchange="updateChartSymbol(this.value)" class="bg-slate-50 border border-slate-200 text-xs text-slate-800 rounded-lg px-2.5 py-1.5 outline-none focus:border-blue-500">
+          <select id="symbolSelect" onchange="updateChartSymbol(this.value)" class="bg-slate-100 border border-slate-300 text-xs text-slate-800 rounded-lg px-2.5 py-1.5 outline-none focus:border-blue-500">
             <option value="BTC/USD">Bitcoin (BTC/USD)</option>
             <option value="ETH/USD">Ethereum (ETH/USD)</option>
             <option value="MAYBANK.KL">Maybank (KLSE)</option>
@@ -198,13 +198,13 @@
 
       <div class="space-y-3">
         <div class="flex justify-between items-center">
-          <h3 id="lbl-watchlist" class="text-xs font-bold text-slate-500 tracking-wider uppercase">Senarai Pantauan</h3>
+          <h3 id="lbl-watchlist" class="text-xs font-bold text-blue-300 tracking-wider uppercase">Senarai Pantauan</h3>
           <div class="flex space-x-1 text-[10px] overflow-x-auto pb-1">
             <button id="cat-all" onclick="filterCategory('all')" class="bg-blue-600 text-white font-bold px-2.5 py-1 rounded-full whitespace-nowrap transition">Semua</button>
-            <button id="cat-saham-my" onclick="filterCategory('saham-my')" class="bg-white border border-slate-200 text-slate-700 px-2.5 py-1 rounded-full whitespace-nowrap transition">Saham MY</button>
-            <button id="cat-saham-us" onclick="filterCategory('saham-us')" class="bg-white border border-slate-200 text-slate-700 px-2.5 py-1 rounded-full whitespace-nowrap transition">Saham US</button>
-            <button id="cat-crypto" onclick="filterCategory('crypto')" class="bg-white border border-slate-200 text-slate-700 px-2.5 py-1 rounded-full whitespace-nowrap transition">Kripto</button>
-            <button id="cat-forex" onclick="filterCategory('forex')" class="bg-white border border-slate-200 text-slate-700 px-2.5 py-1 rounded-full whitespace-nowrap transition">Forex</button>
+            <button id="cat-saham-my" onclick="filterCategory('saham-my')" class="bg-blue-900/60 border border-blue-700/50 text-blue-200 px-2.5 py-1 rounded-full whitespace-nowrap transition">Saham MY</button>
+            <button id="cat-saham-us" onclick="filterCategory('saham-us')" class="bg-blue-900/60 border border-blue-700/50 text-blue-200 px-2.5 py-1 rounded-full whitespace-nowrap transition">Saham US</button>
+            <button id="cat-crypto" onclick="filterCategory('crypto')" class="bg-blue-900/60 border border-blue-700/50 text-blue-200 px-2.5 py-1 rounded-full whitespace-nowrap transition">Kripto</button>
+            <button id="cat-forex" onclick="filterCategory('forex')" class="bg-blue-900/60 border border-blue-700/50 text-blue-200 px-2.5 py-1 rounded-full whitespace-nowrap transition">Forex</button>
           </div>
         </div>
         <div id="watchlist-container" class="space-y-2"></div>
@@ -213,9 +213,9 @@
 
     <!-- TAB 3: BERITA / NEWS -->
     <div id="tab-news" class="tab-content hidden space-y-3">
-      <h3 id="lbl-news-title" class="text-xs font-bold text-slate-500 tracking-wider uppercase">Berita Pasaran Terkini</h3>
+      <h3 id="lbl-news-title" class="text-xs font-bold text-blue-300 tracking-wider uppercase">Berita Pasaran Terkini</h3>
       <div class="space-y-2.5">
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm space-y-1.5 hover:border-slate-300 transition">
+        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-md space-y-1.5">
           <div class="flex justify-between items-center text-[10px]">
             <span id="lbl-news1-cat" class="text-blue-700 font-bold bg-blue-500/10 px-2 py-0.5 rounded border border-blue-500/20">Forex</span>
             <span id="lbl-news1-time" class="text-slate-400">10 minit lepas</span>
@@ -223,7 +223,7 @@
           <h4 id="lbl-news1-title" class="font-bold text-xs text-slate-900 leading-snug">Dolar AS Mengukuh Menjelang Keputusan Kadar Faedah Fed</h4>
           <p class="text-[11px] text-slate-500 line-clamp-2">Pasaran mata wang global menyaksikan pergerakan pesat susulan spekulasi pengumuman polisi kewangan terbaru daripada Rizab Persekutuan.</p>
         </div>
-        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-sm space-y-1.5 hover:border-slate-300 transition">
+        <div class="bg-white p-3.5 rounded-xl border border-slate-200 shadow-md space-y-1.5">
           <div class="flex justify-between items-center text-[10px]">
             <span id="lbl-news2-cat" class="text-purple-700 font-bold bg-purple-500/10 px-2 py-0.5 rounded border border-purple-500/20">Kripto</span>
             <span id="lbl-news2-time" class="text-slate-400">45 minit lepas</span>
@@ -236,7 +236,7 @@
 
     <!-- TAB 4: TRANSAKSI / ORDER -->
     <div id="tab-order" class="tab-content hidden space-y-4">
-      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-4">
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-md space-y-4">
         <h2 id="lbl-tab-order" class="text-base font-bold text-slate-900 text-center">Pusat Transaksi Dana</h2>
 
         <div class="flex bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs">
@@ -286,9 +286,9 @@
     <div id="tab-profile" class="tab-content hidden space-y-4">
       
       <!-- USER INFO CARD -->
-      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+      <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-md space-y-3">
         <div class="flex items-center space-x-3">
-          <div id="profile-avatar" class="w-12 h-12 rounded-full bg-slate-100 border border-slate-200 flex items-center justify-center font-bold text-blue-600 text-base">
+          <div id="profile-avatar" class="w-12 h-12 rounded-full bg-blue-50 border border-blue-200 flex items-center justify-center font-bold text-blue-600 text-base">
             ?
           </div>
           <div class="flex-1">
@@ -311,7 +311,7 @@
       </div>
 
       <!-- REKENING BANK USER FORM -->
-      <form onsubmit="handleBankInfoSubmit(event)" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+      <form onsubmit="handleBankInfoSubmit(event)" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-md space-y-3">
         <h4 id="lbl-user-bank-title" class="font-bold text-xs text-slate-900 flex items-center">
           <i data-feather="credit-card" class="w-4 h-4 mr-1.5 text-blue-600"></i> Maklumat Akaun Bank Saya
         </h4>
@@ -339,7 +339,7 @@
       </form>
 
       <!-- VERIFIKASI KYC FORM -->
-      <form onsubmit="handleKYCSubmit(event)" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm space-y-3">
+      <form onsubmit="handleKYCSubmit(event)" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-md space-y-3">
         <h4 id="lbl-kyc-verify-title" class="font-bold text-xs text-slate-900 flex items-center">
           <i data-feather="shield-check" class="w-4 h-4 mr-1.5 text-blue-600"></i> Pengesahan Identiti (KYC)
         </h4>
@@ -358,7 +358,7 @@
 
       <!-- HUBUNGI KAMI & LOGOUT/LOGIN BUTTON -->
       <div class="space-y-2">
-        <a href="https://wa.me/60123456789" target="_blank" class="w-full bg-white border border-slate-200 hover:border-slate-300 text-slate-700 p-3 rounded-xl flex items-center justify-between transition shadow-sm">
+        <a href="https://wa.me/60123456789" target="_blank" class="w-full bg-white border border-slate-200 text-slate-700 p-3 rounded-xl flex items-center justify-between transition shadow-md">
           <span id="lbl-contact-title" class="text-xs font-bold">Hubungi Kami</span>
           <i data-feather="chevron-right" class="w-4 h-4 text-slate-400"></i>
         </a>
@@ -371,26 +371,26 @@
 
   </main>
 
-  <!-- BOTTOM NAVIGATION BAR -->
-  <nav class="fixed bottom-0 left-0 right-0 bg-white/90 backdrop-blur-md border-t border-slate-200 px-2 py-2 z-40 shadow-lg">
+  <!-- BOTTOM NAVIGATION BAR (Biru Gelap) -->
+  <nav class="fixed bottom-0 left-0 right-0 bg-blue-900/95 backdrop-blur-md border-t border-blue-700/50 px-2 py-2 z-40 shadow-xl">
     <div class="max-w-md mx-auto flex justify-around items-center text-[10px]">
-      <button id="nav-home" onclick="switchTab('home')" class="nav-btn text-blue-600 flex flex-col items-center space-y-1">
+      <button id="nav-home" onclick="switchTab('home')" class="nav-btn text-white flex flex-col items-center space-y-1">
         <i data-feather="home" class="w-5 h-5"></i>
         <span id="nav-lbl-home">Beranda</span>
       </button>
-      <button id="nav-chart" onclick="switchTab('chart')" class="nav-btn text-slate-400 flex flex-col items-center space-y-1">
+      <button id="nav-chart" onclick="switchTab('chart')" class="nav-btn text-blue-300 flex flex-col items-center space-y-1">
         <i data-feather="bar-chart-2" class="w-5 h-5"></i>
         <span id="nav-lbl-chart">Pasaran</span>
       </button>
-      <button id="nav-news" onclick="switchTab('news')" class="nav-btn text-slate-400 flex flex-col items-center space-y-1">
+      <button id="nav-news" onclick="switchTab('news')" class="nav-btn text-blue-300 flex flex-col items-center space-y-1">
         <i data-feather="globe" class="w-5 h-5"></i>
         <span id="nav-lbl-news">Berita</span>
       </button>
-      <button id="nav-order" onclick="switchTab('order')" class="nav-btn text-slate-400 flex flex-col items-center space-y-1">
+      <button id="nav-order" onclick="switchTab('order')" class="nav-btn text-blue-300 flex flex-col items-center space-y-1">
         <i data-feather="repeat" class="w-5 h-5"></i>
         <span id="nav-lbl-order">Transaksi</span>
       </button>
-      <button id="nav-profile" onclick="switchTab('profile')" class="nav-btn text-slate-400 flex flex-col items-center space-y-1">
+      <button id="nav-profile" onclick="switchTab('profile')" class="nav-btn text-blue-300 flex flex-col items-center space-y-1">
         <i data-feather="user" class="w-5 h-5"></i>
         <span id="nav-lbl-profile">Profil</span>
       </button>
@@ -398,7 +398,7 @@
   </nav>
 
   <!-- AUTHENTICATION MODAL -->
-  <div id="authModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+  <div id="authModal" class="fixed inset-0 bg-blue-950/70 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
     <div class="bg-white border border-slate-200 w-full max-w-sm rounded-2xl p-5 space-y-4 relative shadow-2xl">
       <button onclick="closeAuthModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
         <i data-feather="x" class="w-5 h-5"></i>
@@ -451,7 +451,7 @@
   </div>
 
   <!-- DEPOSIT POPUP / CONFIRMATION MODAL -->
-  <div id="depositModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+  <div id="depositModal" class="fixed inset-0 bg-blue-950/70 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
     <div class="bg-white border border-slate-200 w-full max-w-xs rounded-2xl p-5 text-center space-y-4 shadow-2xl">
       <div class="w-12 h-12 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-600 flex items-center justify-center mx-auto">
         <i data-feather="check-circle" class="w-6 h-6"></i>
