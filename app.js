@@ -26,14 +26,14 @@ function switchTab(tabId) {
   if (activeTab) activeTab.classList.remove('hidden');
 
   document.querySelectorAll('.nav-btn').forEach(btn => {
-    btn.classList.remove('text-emerald-400');
+    btn.classList.remove('text-emerald-500');
     btn.classList.add('text-slate-400');
   });
   
   const activeNav = document.getElementById(`nav-${tabId}`);
   if (activeNav) {
     activeNav.classList.remove('text-slate-400');
-    activeNav.classList.add('text-emerald-400');
+    activeNav.classList.add('text-emerald-500');
   }
 }
 
@@ -43,7 +43,7 @@ function switchSubTab(subTab) {
     const btn = document.getElementById(`subtab-btn-${type === 'deposit' ? 'dep' : type === 'withdraw' ? 'wd' : 'status'}`);
     if (el) el.classList.add('hidden');
     if (btn) {
-      btn.className = "w-1/3 py-2 rounded-lg text-slate-400 hover:text-white transition";
+      btn.className = "w-1/3 py-2 rounded-lg text-slate-600 hover:text-slate-900 transition";
     }
   });
 
@@ -86,12 +86,12 @@ function toggleAuthForm(type) {
   if (type === 'login') {
     loginForm.classList.remove('hidden');
     regForm.classList.add('hidden');
-    tabLogin.className = "w-1/2 text-center font-bold text-emerald-400 border-b-2 border-emerald-400 pb-1 text-xs";
+    tabLogin.className = "w-1/2 text-center font-bold text-emerald-600 border-b-2 border-emerald-500 pb-1 text-xs";
     tabReg.className = "w-1/2 text-center font-bold text-slate-400 pb-1 text-xs";
   } else {
     loginForm.classList.add('hidden');
     regForm.classList.remove('hidden');
-    tabReg.className = "w-1/2 text-center font-bold text-emerald-400 border-b-2 border-emerald-400 pb-1 text-xs";
+    tabReg.className = "w-1/2 text-center font-bold text-emerald-600 border-b-2 border-emerald-500 pb-1 text-xs";
     tabLogin.className = "w-1/2 text-center font-bold text-slate-400 pb-1 text-xs";
   }
 }
@@ -171,13 +171,12 @@ async function handleRealRegister(event) {
   }
 }
 
-// REFRESH DATA USER (AMAN DARI AUTO-LOGOUT)
+// REFRESH DATA USER
 async function refreshUserData() {
   if (!currentUser) return updateUIForGuest();
 
   const idToFetch = currentUser.userId || currentUser._id;
 
-  // Jika tidak ada ID, tampilkan data yang ada tanpa logout
   if (!idToFetch) {
     updateUIForLoggedInUser();
     return;
@@ -192,12 +191,10 @@ async function refreshUserData() {
       localStorage.setItem('tradex_user', JSON.stringify(currentUser));
       updateUIForLoggedInUser();
     } else if (res.status === 404) {
-      // Hapus sesi hanya jika user benar-benar hilang di database
       localStorage.removeItem('tradex_user');
       currentUser = null;
       updateUIForGuest();
     } else {
-      // Server error/koneksi terganggu: pertahankan sesi lokal
       updateUIForLoggedInUser();
     }
   } catch (err) {
@@ -212,7 +209,7 @@ function updateUIForLoggedInUser() {
 
   document.getElementById('btn-head-login').textContent = currentUser.name ? currentUser.name.split(' ')[0] : 'User';
   document.getElementById('user-status-badge').textContent = 'Aktif';
-  document.getElementById('user-status-badge').className = 'text-[10px] text-emerald-400 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20';
+  document.getElementById('user-status-badge').className = 'text-[10px] text-emerald-700 font-semibold bg-emerald-500/10 px-2 py-0.5 rounded border border-emerald-500/20';
   
   const balanceVal = currentUser.balance || 0;
   const formattedBalance = `RM ${balanceVal.toLocaleString('en-US', { minimumFractionDigits: 2 })}`;
@@ -239,7 +236,7 @@ function updateUIForGuest() {
   currentUser = null;
   document.getElementById('btn-head-login').textContent = 'Log Masuk';
   document.getElementById('user-status-badge').textContent = 'Belum Log Masuk';
-  document.getElementById('user-status-badge').className = 'text-[10px] text-amber-400 font-semibold bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20';
+  document.getElementById('user-status-badge').className = 'text-[10px] text-amber-700 font-semibold bg-amber-500/10 px-2 py-0.5 rounded border border-amber-500/20';
   
   document.getElementById('display-total-balance').textContent = 'RM 0.00';
   document.getElementById('display-withdrawable').textContent = 'RM 0.00';
@@ -335,26 +332,26 @@ async function fetchTransactionHistory() {
     }
 
     container.innerHTML = data.map(trx => `
-      <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
+      <div class="bg-slate-50 p-3 rounded-xl border border-slate-200 flex justify-between items-center text-xs">
         <div>
           <div class="flex items-center space-x-1.5">
-            <span class="font-bold ${trx.type === 'Deposit' ? 'text-emerald-400' : 'text-rose-400'}">${trx.type}</span>
-            <span class="text-[10px] text-slate-500">${trx.trxId}</span>
+            <span class="font-bold ${trx.type === 'Deposit' ? 'text-emerald-600' : 'text-rose-600'}">${trx.type}</span>
+            <span class="text-[10px] text-slate-400">${trx.trxId}</span>
           </div>
-          <p class="text-[10px] text-slate-400 mt-0.5">${new Date(trx.createdAt).toLocaleString()}</p>
+          <p class="text-[10px] text-slate-500 mt-0.5">${new Date(trx.createdAt).toLocaleString()}</p>
         </div>
         <div class="text-right">
-          <p class="font-bold text-white">RM ${trx.amount.toFixed(2)}</p>
+          <p class="font-bold text-slate-900">RM ${trx.amount.toFixed(2)}</p>
           <span class="text-[9px] px-1.5 py-0.5 rounded font-bold ${
-            trx.status === 'Berhasil' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' :
-            trx.status === 'Ditolak' ? 'bg-rose-500/10 text-rose-400 border border-rose-500/20' :
-            'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+            trx.status === 'Berhasil' ? 'bg-emerald-500/10 text-emerald-700 border border-emerald-500/20' :
+            trx.status === 'Ditolak' ? 'bg-rose-500/10 text-rose-700 border border-rose-500/20' :
+            'bg-amber-500/10 text-amber-700 border border-amber-500/20'
           }">${trx.status}</span>
         </div>
       </div>
     `).join('');
   } catch (err) {
-    container.innerHTML = `<p class="text-xs text-rose-500 text-center py-2">Gagal memuat sejarah</p>`;
+    container.innerHTML = `<p class="text-xs text-rose-600 text-center py-2">Gagal memuat sejarah</p>`;
   }
 }
 
@@ -424,8 +421,8 @@ function initSlider() {
     currentSlide = currentSlide === 0 ? 1 : 0;
     if (slider) slider.style.transform = `translateX(-${currentSlide * 50}%)`;
     if (dot0 && dot1) {
-      dot0.className = `w-2 h-2 rounded-full ${currentSlide === 0 ? 'bg-emerald-400' : 'bg-slate-500'}`;
-      dot1.className = `w-2 h-2 rounded-full ${currentSlide === 1 ? 'bg-emerald-400' : 'bg-slate-500'}`;
+      dot0.className = `w-2 h-2 rounded-full ${currentSlide === 0 ? 'bg-emerald-500' : 'bg-slate-300'}`;
+      dot1.className = `w-2 h-2 rounded-full ${currentSlide === 1 ? 'bg-emerald-500' : 'bg-slate-300'}`;
     }
   }, 4000);
 }
@@ -446,14 +443,14 @@ function initWatchlist(category = 'all') {
 
   const filtered = category === 'all' ? watchlistData : watchlistData.filter(i => i.cat === category);
   container.innerHTML = filtered.map(item => `
-    <div onclick="updateChartSymbol('${item.symbol}')" class="bg-slate-900 p-3 rounded-xl border border-slate-800 flex justify-between items-center hover:border-slate-700 cursor-pointer transition">
+    <div onclick="updateChartSymbol('${item.symbol}')" class="bg-white p-3 rounded-xl border border-slate-200 flex justify-between items-center hover:border-slate-300 shadow-sm cursor-pointer transition">
       <div>
-        <p class="font-bold text-xs text-white">${item.symbol}</p>
-        <p class="text-[10px] text-slate-400">${item.name}</p>
+        <p class="font-bold text-xs text-slate-900">${item.symbol}</p>
+        <p class="text-[10px] text-slate-500">${item.name}</p>
       </div>
       <div class="text-right">
-        <p class="font-bold text-xs text-white">${item.price}</p>
-        <p class="text-[10px] font-bold ${item.positive ? 'text-emerald-400' : 'text-rose-400'}">${item.change}</p>
+        <p class="font-bold text-xs text-slate-900">${item.price}</p>
+        <p class="text-[10px] font-bold ${item.positive ? 'text-emerald-600' : 'text-rose-600'}">${item.change}</p>
       </div>
     </div>
   `).join('');
@@ -462,7 +459,7 @@ function initWatchlist(category = 'all') {
 function filterCategory(cat) {
   ['all', 'saham-my', 'saham-us', 'crypto', 'forex'].forEach(c => {
     const btn = document.getElementById(`cat-${c}`);
-    if (btn) btn.className = "bg-slate-800 border border-slate-700 text-slate-300 px-2.5 py-1 rounded-full whitespace-nowrap transition";
+    if (btn) btn.className = "bg-white border border-slate-200 text-slate-700 px-2.5 py-1 rounded-full whitespace-nowrap transition";
   });
   const activeBtn = document.getElementById(`cat-${cat}`);
   if (activeBtn) activeBtn.className = "bg-emerald-500 text-white font-bold px-2.5 py-1 rounded-full whitespace-nowrap transition";
@@ -470,7 +467,7 @@ function filterCategory(cat) {
   initWatchlist(cat);
 }
 
-// CHART SYSTEM (CHART.JS)
+// CHART SYSTEM (CHART.JS - COLOR UPDATED FOR LIGHT THEME)
 function initChart() {
   const ctx = document.getElementById('tradingChart');
   if (!ctx) return;
@@ -496,7 +493,7 @@ function initChart() {
       plugins: { legend: { display: false } },
       scales: {
         x: { grid: { display: false }, ticks: { color: '#64748b', font: { size: 9 } } },
-        y: { grid: { color: 'rgba(51, 65, 85, 0.3)' }, ticks: { color: '#64748b', font: { size: 9 } } }
+        y: { grid: { color: 'rgba(226, 232, 240, 0.8)' }, ticks: { color: '#64748b', font: { size: 9 } } }
       }
     }
   });
@@ -517,7 +514,7 @@ function updateChartSymbol(symbol) {
 function changeTimeframe(tf) {
   ['1D', '1W', '1M', '1Y'].forEach(t => {
     const btn = document.getElementById(`tf-${t}`);
-    if (btn) btn.className = "bg-slate-700 text-slate-300 hover:text-white px-2 py-0.5 rounded transition";
+    if (btn) btn.className = "bg-slate-200 text-slate-700 hover:bg-slate-300 px-2 py-0.5 rounded transition";
   });
   const activeBtn = document.getElementById(`tf-${tf}`);
   if (activeBtn) activeBtn.className = "bg-emerald-500 text-white font-bold px-2 py-0.5 rounded transition";
