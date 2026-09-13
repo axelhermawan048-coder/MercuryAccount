@@ -22,11 +22,7 @@
   scrollbar-width: none;
 }
 
-/* ==========================================
-   POPUP MODAL & OVERLAY STYLING (BANK & KYC)
-   ========================================== */
-
-/* Background Overlay Modal */
+/* POPUP MODAL & OVERLAY STYLING */
 .modal-overlay {
   position: fixed;
   inset: 0;
@@ -39,20 +35,18 @@
   padding: 1rem;
 }
 
-/* Modal Content Container Center Screen */
 .modal-content {
   background-color: #1e293b;
   border: 1px solid rgba(51, 65, 85, 0.8);
   border-radius: 1rem;
   width: 100%;
-  max-width: 28rem; /* 448px */
+  max-width: 28rem;
   max-height: 90vh;
   overflow-y: auto;
   box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5);
   animation: modalScaleIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Animasi Popup Masuk di Tengah */
 @keyframes modalScaleIn {
   from {
     opacity: 0;
@@ -64,7 +58,6 @@
   }
 }
 
-/* Styling Custom Form Input Inside Modals */
 .modal-content input[type="text"],
 .modal-content input[type="number"],
 .modal-content select {
@@ -85,7 +78,6 @@
   box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);
 }
 
-/* Styling File Upload Drag/Drop Box untuk KYC */
 .file-upload-box {
   border: 2px dashed #334155;
   background-color: rgba(15, 23, 42, 0.5);
@@ -101,7 +93,6 @@
   background-color: rgba(16, 185, 129, 0.05);
 }
 
-/* Custom Scrollbar untuk Modal Panjang */
 .modal-content::-webkit-scrollbar {
   width: 6px;
 }
