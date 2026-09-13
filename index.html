@@ -20,8 +20,8 @@
     <div class="flex items-center space-x-2">
       <img src="./myylogo.png" alt="Logo Mercury" class="h-8 w-auto object-contain">
       <div>
-        <h1 class="font-bold text-sm tracking-wide text-blue-900 leading-none">MERCURY SECURITIES</h1>
-        <p id="lbl-head-sub" class="text-[10px] text-slate-500">Portal Perdagangan Rasmi</p>
+        <h1 class="font-bold text-sm tracking-wide text-blue-900 leading-none">MERCURY</h1>
+        <p id="lbl-head-sub" class="text-[10px] text-slate-500">Portal Akaun</p>
       </div>
     </div>
 
@@ -55,7 +55,7 @@
               KEUNTUNGAN MAKSIMAL
             </span>
             <h2 id="lbl-banner1-title" class="text-lg font-extrabold text-slate-900 leading-tight bg-white/60 p-1.5 rounded-lg backdrop-blur-[2px]">
-              Mencapai Kejayaan Kewangan Bersama Platform Mercury
+              Mencapai Kejayaan Kewangan Bersama Mercury
             </h2>
             <button onclick="switchTab('chart')" class="text-xs bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-2 rounded-xl w-max transition shadow-sm">
               <span id="lbl-quick-sys">Sistem Eksekusi Pantas</span> &rarr;
@@ -67,7 +67,7 @@
               PASARAN GLOBAL
             </span>
             <h2 id="lbl-banner2-title" class="text-lg font-extrabold text-slate-900 leading-tight bg-white/60 p-1.5 rounded-lg backdrop-blur-[2px]">
-              Pelaburan Bijak dalam Saham Malaysia, US & Kripto
+              Pelaburan Bijak dalam Saham
             </h2>
             <button onclick="switchTab('chart')" class="text-xs bg-blue-600 hover:bg-blue-700 text-white font-bold px-3 py-2 rounded-xl w-max transition shadow-sm">
               <span id="btn-explore-mkt">Terokai Pasaran</span> &rarr;
@@ -122,12 +122,12 @@
           <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm space-y-1">
             <i data-feather="shield" class="w-5 h-5 text-blue-600"></i>
             <p id="lbl-feat1-title" class="font-bold text-xs text-slate-900">Keselamatan Tinggi</p>
-            <p id="lbl-feat1-desc" class="text-[10px] text-slate-500">Enkripsi data ketat & verifikasi KYC terjamin.</p>
+            <p id="lbl-feat1-desc" class="text-[10px] text-slate-500">Enkripsi ketat & terjamin.</p>
           </div>
           <div class="bg-white p-3 rounded-xl border border-slate-200 shadow-sm space-y-1">
             <i data-feather="zap" class="w-5 h-5 text-amber-500"></i>
             <p id="lbl-feat2-title" class="font-bold text-xs text-slate-900">Data Real-Time</p>
-            <p id="lbl-feat2-desc" class="text-[10px] text-slate-500">Pantau harga saham & kripto secara langsung.</p>
+            <p id="lbl-feat2-desc" class="text-[10px] text-slate-500">Pantau harga secara langsung.</p>
           </div>
         </div>
       </div>
@@ -340,24 +340,6 @@
         </div>
         <button type="submit" id="btn-save-bank" class="w-full bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200 font-bold py-2 rounded-xl text-xs transition">
           Simpan Akaun Bank
-        </button>
-      </form>
-
-      <!-- VERIFIKASI KYC FORM -->
-      <form onsubmit="handleKYCSubmit(event)" class="bg-white p-4 rounded-2xl border border-slate-200 shadow-md space-y-3">
-        <h4 id="lbl-kyc-verify-title" class="font-bold text-xs text-slate-900 flex items-center">
-          <i data-feather="shield-check" class="w-4 h-4 mr-1.5 text-blue-600"></i> Pengesahan Identiti (KYC)
-        </h4>
-        <div>
-          <label id="lbl-upload-ktp" class="block text-[11px] text-slate-500 mb-1">Muat Naik Foto KTP / Pasport</label>
-          <input type="file" id="input-ktp" accept="image/*" class="w-full text-xs text-slate-600 bg-slate-50 border border-slate-200 rounded-xl p-2 cursor-pointer">
-        </div>
-        <div>
-          <label id="lbl-upload-selfie" class="block text-[11px] text-slate-500 mb-1">Muat Naik Foto Selfie Bersama KTP</label>
-          <input type="file" id="input-selfie" accept="image/*" class="w-full text-xs text-slate-600 bg-slate-50 border border-slate-200 rounded-xl p-2 cursor-pointer">
-        </div>
-        <button type="submit" id="btn-submit-kyc" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 rounded-xl text-xs transition">
-          Hantar Dokumen KYC
         </button>
       </form>
 
