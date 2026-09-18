@@ -115,6 +115,6 @@
 #chat-widget-container,
 div[id^="chat-widget-container"],
 iframe[title*="Chat widget"] {
-  bottom: 25px !important;
+  bottom: 35px !important;
   right: 20px !important;
 }
