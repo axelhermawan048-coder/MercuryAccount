@@ -432,7 +432,7 @@ function closeDepositModal() {
 }
 
 function redirectToCustomerService() {
-  window.open('https://wa.me/00000', '_blank');
+  window.open('https://t.me/Mercurysecurities', '_blank');
 }
 
 // SLIDER LOGIC
