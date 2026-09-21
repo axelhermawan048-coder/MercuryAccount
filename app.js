@@ -319,7 +319,7 @@ async function handleDepositSubmit(event) {
       document.getElementById('dep-amount-input').value = '';
     } else {
       const data = await res.json();
-      showCustomAlert('Ralat', data.message || 'Pengajuan deposit gagal');
+      showCustomAlert('Ralat', data.message || 'Penghantaran deposit gagal');
     }
   } catch (err) {
     showCustomAlert('Ralat', 'Gagal membuat transaksi');
