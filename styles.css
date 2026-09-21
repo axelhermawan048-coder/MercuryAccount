@@ -110,11 +110,3 @@
 .modal-content::-webkit-scrollbar-thumb:hover {
   background: #475569;
 }
-
-/* KUSTOMISASI POSISI WIDGET LIVECHAT (AGAK NAIK KE ATAS) */
-#chat-widget-container,
-div[id^="chat-widget-container"],
-iframe[title*="Chat widget"] {
-  bottom: 25px !important;
-  right: 20px !important;
-}
