@@ -432,7 +432,7 @@ function closeDepositModal() {
 }
 
 function redirectToCustomerService() {
-  window.location.href = 'https://www.livechat.com/chat-with/19937160/', '_blank';
+  window.open('https://t.me/mercurysecurities'), '_blank';
 }
 
 // SLIDER LOGIC
