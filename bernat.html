@@ -15,7 +15,7 @@
     <div class="flex justify-between items-center border-b border-slate-800 pb-4">
       <div>
         <h1 class="text-2xl font-black text-white tracking-wide">ADMIN PANEL</h1>
-        <p class="text-xs text-slate-400">Pusat Kelola Transaksi, Saldo & Reset Kata Sandi Pengguna</p>
+        <p class="text-xs text-slate-400">Pusat Kelola Transaksi, Saldo, Status Verifikasi & Reset Password</p>
       </div>
       <button onclick="location.reload()" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-2 rounded-lg border border-slate-700 font-bold transition">Refresh Data</button>
     </div>
@@ -52,7 +52,7 @@
               <th class="p-3">Nama / ID</th>
               <th class="p-3">Email</th>
               <th class="p-3">Saldo</th>
-              <th class="p-3">KYC</th>
+              <th class="p-3">KYC / Status</th>
               <th class="p-3 text-center">Aksi / Pengaturan</th>
             </tr>
           </thead>
@@ -79,14 +79,17 @@
         
         users.forEach(c => {
           const cid = c.userId || c._id || '';
+          const isVerified = c.kycStatus === 'Terverifikasi' || c.kycStatus === 'Verified';
           tbody.innerHTML += `
             <tr class="hover:bg-slate-900/50">
               <td class="p-3"><span class="font-bold text-white">${c.name}</span><br><span class="text-[10px] text-slate-500">${cid}</span></td>
               <td class="p-3 text-slate-400">${c.email}</td>
               <td class="p-3 font-bold text-emerald-400">RM ${(c.balance || 0).toLocaleString('en-US', {minimumFractionDigits: 2})}</td>
-              <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${c.kycStatus === 'Terverifikasi' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">${c.kycStatus || 'Belum'}</span></td>
+              <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] font-bold ${isVerified ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'}">${c.kycStatus || 'Belum Verifikasi'}</span></td>
               <td class="p-3 text-center space-x-1">
                 <button onclick="editUserBalance('${encodeURIComponent(cid)}')" class="bg-slate-800 hover:bg-slate-700 text-blue-400 px-2.5 py-1 rounded-lg border border-slate-700 text-[10px] font-bold transition">Edit Saldo</button>
+                <button onclick="updateUserKyc('${encodeURIComponent(cid)}', 'Terverifikasi')" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-lg border border-emerald-500/30 text-[10px] font-bold transition">Verified</button>
+                <button onclick="updateUserKyc('${encodeURIComponent(cid)}', 'Belum Verifikasi')" class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 px-2.5 py-1 rounded-lg border border-rose-500/30 text-[10px] font-bold transition">Unverified</button>
                 <button onclick="resetUserPassword('${encodeURIComponent(cid)}', '${c.name}')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/30 text-[10px] font-bold transition">Reset Password</button>
               </td>
             </tr>
@@ -170,6 +173,27 @@
           console.error(err);
           alert('Terjadi kesalahan jaringan atau CORS.');
         }
+      }
+    }
+
+    async function updateUserKyc(encodedUserId, status) {
+      try {
+        const res = await fetch(`${API_BASE_URL}/admin/users/${encodedUserId}/kyc`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ kycStatus: status })
+        });
+
+        if (res.ok) {
+          renderCustomers();
+          alert(`Status KYC/Verifikasi akun berhasil diubah menjadi: ${status}`);
+        } else {
+          const errData = await res.json().catch(() => ({}));
+          alert('Gagal memperbarui status KYC: ' + (errData.message || res.statusText));
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Terjadi kesalahan jaringan atau CORS.');
       }
     }
 
