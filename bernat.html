@@ -20,7 +20,7 @@
       <button onclick="location.reload()" class="bg-slate-800 hover:bg-slate-700 text-xs px-3 py-2 rounded-lg border border-slate-700 font-bold transition">Refresh Data</button>
     </div>
 
-   <!-- TABEL TRANSAKSI -->
+    <!-- TABEL TRANSAKSI -->
     <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 space-y-4 shadow-xl">
       <h2 class="text-lg font-bold text-white">Kelola Transaksi (Deposit / Withdraw)</h2>
       <div class="overflow-x-auto">
@@ -90,7 +90,7 @@
               <td class="p-3 text-center space-x-1">
                 <button onclick="editUserBalance('${encodeURIComponent(cid)}')" class="bg-slate-800 hover:bg-slate-700 text-blue-400 px-2.5 py-1 rounded-lg border border-slate-700 text-[10px] font-bold transition">Edit Saldo</button>
                 <button onclick="updateUserKyc('${encodeURIComponent(cid)}', 'Verified')" class="bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 px-2.5 py-1 rounded-lg border border-emerald-500/30 text-[10px] font-bold transition">Verified</button>
-                <button onclick="updateUserKyc('${encodeURIComponent(cid)}', 'Belum Verifikasi')" class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 px-2.5 py-1 rounded-lg border border-rose-500/30 text-[10px] font-bold transition">Unverified</button>
+                <button onclick="updateUserKyc('${encodeURIComponent(cid)}', 'belum verifikasi')" class="bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 px-2.5 py-1 rounded-lg border border-rose-500/30 text-[10px] font-bold transition">Unverified</button>
                 <button onclick="resetUserPassword('${encodeURIComponent(cid)}', '${c.name}')" class="bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 px-2.5 py-1 rounded-lg border border-amber-500/30 text-[10px] font-bold transition">Reset Password</button>
               </td>
             </tr>
@@ -111,10 +111,12 @@
         tbody.innerHTML = '';
         trxs.forEach(trx => {
           let badge = trx.status === 'Berhasil' ? 'bg-emerald-500/20 text-emerald-400 border-emerald-500/30' : (trx.status === 'Pending' ? 'bg-amber-500/20 text-amber-400 border-amber-500/30' : 'bg-rose-500/20 text-rose-400 border-rose-500/30');
+          const userName = trx.userName || (trx.user && trx.user.name) || trx.name || trx.userId || trx.email || '-';
           
           tbody.innerHTML += `
             <tr class="hover:bg-slate-900/50">
               <td class="p-3 font-mono text-white">${trx.trxId}</td>
+              <td class="p-3 font-bold text-slate-200">${userName}</td>
               <td class="p-3 font-bold ${trx.type === 'Deposit' ? 'text-emerald-400' : 'text-rose-400'}">${trx.type}</td>
               <td class="p-3 font-bold text-white">RM ${Number(trx.amount || 0).toFixed(2)}</td>
               <td class="p-3 text-slate-400 text-[10px]">${new Date(trx.createdAt).toLocaleString()}</td>
